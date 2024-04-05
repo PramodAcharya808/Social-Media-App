@@ -1,15 +1,19 @@
 import styles from "./SideBar.module.css";
 
-const SideBar = ({ activeMenu }) => {
+const SideBar = ({ activeMenu, setactiveMenu }) => {
   let home, createpost;
   if (activeMenu === "Home") home = "active";
   else if (activeMenu === "Create Post") createpost = "active";
 
+  const handleMenuClick = (e) => {
+    setactiveMenu(e.target.innerText);
+  };
+
   return (
     <>
       <div
-        className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
-        style={{ width: "100%", height: "100vh" }}
+        className={`d-flex flex-column flex-shrink-0 p-3 text-bg-dark ${styles.SideBarMenu}`}
+
       >
         <a
           href="/"
@@ -27,6 +31,7 @@ const SideBar = ({ activeMenu }) => {
               href="#"
               className={`nav-link text-white ${home}`}
               aria-current="page"
+              onClick={handleMenuClick}
             >
               <svg className="bi pe-none me-2" width="16" height="16">
                 <use xlinkHref="#home"></use>
@@ -35,7 +40,11 @@ const SideBar = ({ activeMenu }) => {
             </a>
           </li>
           <li>
-            <a href="#" className={`nav-link text-white ${createpost}`}>
+            <a
+              href="#"
+              className={`nav-link text-white ${createpost}`}
+              onClick={handleMenuClick}
+            >
               <svg className="bi pe-none me-2" width="16" height="16">
                 <use xlinkHref="#speedometer2"></use>
               </svg>

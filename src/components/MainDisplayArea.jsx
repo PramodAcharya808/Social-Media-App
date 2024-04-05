@@ -1,5 +1,6 @@
-const MainDisplayArea = ({ children }) => {
-  return <div className="MainDisplay">{children}</div>;
+import "./MainDisplay.css"
+const MainDisplayArea = (props) => {
+  return <div className="MainDisplay">{props.children}</div>;
 };
 
 export default MainDisplayArea;

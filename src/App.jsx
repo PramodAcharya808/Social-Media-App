@@ -8,13 +8,16 @@ import MainDisplayArea from "./components/MainDisplayArea";
 import PostList from "./components/PostList";
 import { useState } from "react";
 function App() {
-  let [activeMenu, setactiveMenu] = useState("Create Post");
+  let [activeMenu, setactiveMenu] = useState("Home");
 
   return (
     <div className={`container-fluid`}>
       <div className="row">
         <div className="col-2 p-0">
-          <SideBar activeMenu={activeMenu}></SideBar>
+          <SideBar
+            activeMenu={activeMenu}
+            setactiveMenu={setactiveMenu}
+          ></SideBar>
         </div>
         <div className="col-10 p-0">
           <Header></Header>
@@ -25,9 +28,8 @@ function App() {
             ) : (
               <CreatePost></CreatePost>
             )}
+            <Footer></Footer>
           </MainDisplayArea>
-
-          <Footer></Footer>
         </div>
       </div>
     </div>
