@@ -1,51 +1,57 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 
+// POST LIST CONTEXT PROVIDER
 const PostListContext = createContext({
   PostList: [],
   AddPost: () => {},
   DeletePost: () => {},
 });
 
-const Reducer = () => {};
+//REDUCER PURE FUNCTION
+const Reducer = (currPostList, action) => {
+  let newPostList = currPostList;
+  if (action.type === "DELETE_POST") {
+    newPostList = currPostList.filter((post) => {
+      return post.id != action.payload;
+    });
+  }
 
-const AddPost = () => {};
+  if (action.type === "ADD_POST") {
+    newPostList = [action.payload, ...currPostList];
+  }
 
-const DeletePost = () => {};
+  return newPostList;
+};
 
-// Post Template
-const POST_TEMPLATE = [
-  {
-    id: 1,
-    title: "FULL STACK ROADMAP",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, omnis Lorem ipsum dolor sit amet",
-    userID: "AX1522",
-    reactionCount: 10,
-    tags: ["software", "computerscience", "fullstack"],
-  },
-
-  {
-    id: 2,
-    title: "GOING TO USA",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, omnis Lorem ipsum dolor sit amet",
-    userID: "AX1523",
-    reactionCount: 20,
-    tags: ["vacation", "trip", "weekend"],
-  },
-  {
-    id: 3,
-    title: "LEARN MERN STACK",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, omnis Lorem ipsum dolor sit amet",
-    userID: "AX1523",
-    reactionCount: 36,
-    tags: ["software", "computerscience", "fullstack"],
-  },
-];
-
+// POST LIST CONTEXT PROVIDER WRAPPING
 const PostListContextProvider = (props) => {
-  const [PostList, PostListDispatch] = useReducer(Reducer, POST_TEMPLATE);
+  const [PostList, PostListDispatch] = useReducer(Reducer, []);
+
+  // DELETE POST FUNCTION
+  const DeletePost = (postID) => {
+    const dltPost = {
+      type: "DELETE_POST",
+      payload: postID,
+    };
+
+    PostListDispatch(dltPost);
+  };
+
+  // ADD POST FUNCTION
+  const AddPost = (title, description, tag) => {
+    const addPost = {
+      type: "ADD_POST",
+      payload: {
+        id: Date.now().toString(),
+        title: title,
+        description: description,
+        reactionCount: 0,
+        tags: tag,
+      },
+    };
+
+    PostListDispatch(addPost);
+  };
 
   return (
     <PostListContext.Provider value={{ PostList, AddPost, DeletePost }}>

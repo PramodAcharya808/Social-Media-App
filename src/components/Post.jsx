@@ -1,20 +1,28 @@
+import { useContext } from "react";
 import "./Post.css";
 import { FaHeart } from "react-icons/fa";
 import { IoIosCloseCircle } from "react-icons/io";
+import { PostListContext } from "../store/PostList.store";
+
 const Post = ({ post }) => {
-  console.log(post);
+  const { DeletePost } = useContext(PostListContext);
   return (
     <div className="card my-4 myPost" style={{ width: "18rem" }}>
-      <IoIosCloseCircle className="closePostBtn" />
+      <IoIosCloseCircle
+        className="closePostBtn"
+        onClick={() => DeletePost(post.id)}
+      />
       <div className="card-body">
         <h5 className="card-title">{post.title}</h5>
         <p className="card-text">{post.description}</p>
-        {post.tags.map((tag) => (
-          <span class="badge text-bg-info tags">{"#"+tag}</span>
-        ))}
+
+        <span className="badge text-bg tags" key={post.id}>
+          {post.tags}
+        </span>
+
         <div className="reactionBtn">
-          <a href="#" className="btn btn-primary">
-            Like <FaHeart className="heartLike"/> {post.reactionCount}
+          <a className="btn btn-primary">
+            Like <FaHeart className="heartLike" /> {post.reactionCount}
           </a>
         </div>
       </div>

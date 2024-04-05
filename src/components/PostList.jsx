@@ -4,7 +4,6 @@ import { useContext } from "react";
 
 const PostList = () => {
   const { PostList } = useContext(PostListContext);
-  // console.log(PostList);
   return (
     <>
       {PostList.map((eachPost) => {
