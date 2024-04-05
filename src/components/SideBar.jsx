@@ -13,7 +13,6 @@ const SideBar = ({ activeMenu, setactiveMenu }) => {
     <>
       <div
         className={`d-flex flex-column flex-shrink-0 p-3 text-bg-dark ${styles.SideBarMenu}`}
-
       >
         <a
           href="/"

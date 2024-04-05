@@ -7,32 +7,36 @@ import CreatePost from "./components/CreatePost";
 import MainDisplayArea from "./components/MainDisplayArea";
 import PostList from "./components/PostList";
 import { useState } from "react";
+import { PostListContextProvider } from "./store/PostList.store";
+
 function App() {
   let [activeMenu, setactiveMenu] = useState("Home");
 
   return (
-    <div className={`container-fluid`}>
-      <div className="row">
-        <div className="col-2 p-0">
-          <SideBar
-            activeMenu={activeMenu}
-            setactiveMenu={setactiveMenu}
-          ></SideBar>
-        </div>
-        <div className="col-10 p-0">
-          <Header></Header>
+    <PostListContextProvider>
+      <div className={`container-fluid`}>
+        <div className="row">
+          <div className="col-2 p-0">
+            <SideBar
+              activeMenu={activeMenu}
+              setactiveMenu={setactiveMenu}
+            ></SideBar>
+          </div>
+          <div className="col-10 p-0">
+            <Header></Header>
 
-          <MainDisplayArea>
-            {activeMenu === "Home" ? (
-              <PostList></PostList>
-            ) : (
-              <CreatePost></CreatePost>
-            )}
-            <Footer></Footer>
-          </MainDisplayArea>
+            <MainDisplayArea>
+              {activeMenu === "Home" ? (
+                <PostList></PostList>
+              ) : (
+                <CreatePost></CreatePost>
+              )}
+              <Footer></Footer>
+            </MainDisplayArea>
+          </div>
         </div>
       </div>
-    </div>
+    </PostListContextProvider>
   );
 }
 
