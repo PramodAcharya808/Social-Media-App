@@ -1,0 +1,9 @@
+.formWrapper {
+  background: linear-gradient(90deg, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
+  color: white;
+  box-sizing: border-box;
+  padding: 2rem;
+  max-width: 50%;
+  border-radius: 1.5rem;
+}
+
