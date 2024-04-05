@@ -3,7 +3,7 @@
   color: white;
   box-sizing: border-box;
   padding: 2rem;
-  max-width: 50%;
+  min-width: 50%;
+  margin: 15% 0 10% 0;
   border-radius: 1.5rem;
 }
-

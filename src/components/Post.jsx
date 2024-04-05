@@ -1,7 +1,13 @@
+import "./Post.css";
 const Post = () => {
+  let num = 121;
   return (
-    <div className="card my-4" style={{ width: "18rem" }}>
-      <img src="https://picsum.photos/id/1/150/150" className="card-img-top" alt="..." />
+    <div className="card my-4 myPost" style={{ width: "18rem" }}>
+      <img
+        src={`https://picsum.photos/id/${num}/100/100`}
+        className="card-img-top"
+        alt="..."
+      />
       <div className="card-body">
         <h5 className="card-title">Card title</h5>
         <p className="card-text">

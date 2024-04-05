@@ -1,0 +1,7 @@
+.myPost{
+  min-width: 35rem;
+}
+
+.myPost img{
+  object-fit: filled;
+}
