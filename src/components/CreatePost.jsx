@@ -6,9 +6,9 @@ import { PostListContext } from "../store/PostList.store";
 const CreatePost = () => {
   const { AddPost } = useContext(PostListContext);
 
-  const postTitle = useRef();
-  const postDesc = useRef();
-  const postTags = useRef();
+  const postTitle = useRef("");
+  const postDesc = useRef("");
+  const postTags = useRef("");
 
   const createPostonSubmit = (event) => {
     event.preventDefault();
