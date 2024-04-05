@@ -1,6 +1,10 @@
 import styles from "./SideBar.module.css";
 
-const SideBar = () => {
+const SideBar = ({activeMenu}) => {
+
+  let activeState = "";
+  if(activeMenu==="Home") activeState = "active";
+
   return (
     <>
       <div
@@ -19,7 +23,7 @@ const SideBar = () => {
         <hr />
         <ul className="nav nav-pills flex-column mb-auto">
           <li className="nav-item">
-            <a href="#" className="nav-link active" aria-current="page">
+            <a href="#" className={`nav-link text-white ${activeState}`} aria-current="page">
               <svg className="bi pe-none me-2" width="16" height="16">
                 <use xlinkHref="#home"></use>
               </svg>

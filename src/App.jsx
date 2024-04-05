@@ -14,7 +14,7 @@ function App() {
     <div className={`container-fluid`}>
       <div className="row">
         <div className="col-2 p-0">
-          <SideBar></SideBar>
+          <SideBar activeMenu={activeMenu}></SideBar>
         </div>
         <div className="col-10 p-0">
           <Header></Header>
