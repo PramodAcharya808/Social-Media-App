@@ -1,7 +1,35 @@
-.myPost{
+.myPost {
   min-width: 35rem;
 }
 
-.myPost img{
+.myPost img {
   object-fit: filled;
+}
+
+.closePostBtn {
+  color: red;
+  position: absolute;
+  right: 0;
+  margin: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.tags{
+  margin: 1rem 1rem 0 0;
+  color: rgb(136, 136, 136);
+  font-weight: 500;
+}
+
+.reactionBtn{
+  margin-top: 1rem;
+}
+
+.heartLike{
+  color: red;
+}
+
+.card-title{
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 700;
 }
