@@ -1,9 +1,9 @@
 import styles from "./SideBar.module.css";
 
-const SideBar = ({activeMenu}) => {
-
-  let activeState = "";
-  if(activeMenu==="Home") activeState = "active";
+const SideBar = ({ activeMenu }) => {
+  let home, createpost;
+  if (activeMenu === "Home") home = "active";
+  else if (activeMenu === "Create Post") createpost = "active";
 
   return (
     <>
@@ -23,7 +23,11 @@ const SideBar = ({activeMenu}) => {
         <hr />
         <ul className="nav nav-pills flex-column mb-auto">
           <li className="nav-item">
-            <a href="#" className={`nav-link text-white ${activeState}`} aria-current="page">
+            <a
+              href="#"
+              className={`nav-link text-white ${home}`}
+              aria-current="page"
+            >
               <svg className="bi pe-none me-2" width="16" height="16">
                 <use xlinkHref="#home"></use>
               </svg>
@@ -31,7 +35,7 @@ const SideBar = ({activeMenu}) => {
             </a>
           </li>
           <li>
-            <a href="#" className="nav-link text-white">
+            <a href="#" className={`nav-link text-white ${createpost}`}>
               <svg className="bi pe-none me-2" width="16" height="16">
                 <use xlinkHref="#speedometer2"></use>
               </svg>

@@ -8,7 +8,7 @@ import MainDisplayArea from "./components/MainDisplayArea";
 import PostList from "./components/PostList";
 import { useState } from "react";
 function App() {
-  let [activeMenu, setactiveMenu] = useState("Home");
+  let [activeMenu, setactiveMenu] = useState("Create Post");
 
   return (
     <div className={`container-fluid`}>
