@@ -60,7 +60,6 @@ const PostListContextProvider = (props) => {
         posts,
       },
     };
-    console.log(posts);
     PostListDispatch(addAllPost);
   };
 

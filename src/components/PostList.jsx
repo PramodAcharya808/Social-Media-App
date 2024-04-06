@@ -1,26 +1,30 @@
 import Post from "./Post";
 import { PostListContext } from "../store/PostList.store";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import WelcomeMessage from "./WelcomeMessage";
-
+import Loading from "./Loading";
 const PostList = () => {
   const { postList, AddAllPostFunc } = useContext(PostListContext);
+  const [fetching, setFetching] = useState(false);
 
-  const getAllPostsHandler = () => {
+  useEffect(() => {
+    setFetching(true);
     fetch("https://dummyjson.com/posts")
       .then((res) => res.json())
       .then((obj) => {
         AddAllPostFunc(obj.posts);
+        setFetching(false);
       });
-  };
+  }, []);
+
   return (
     <>
-      {postList.length === 0 && (
-        <WelcomeMessage getAllPostsHandler={getAllPostsHandler} />
-      )}
-      {postList.map((eachPost) => {
-        return <Post key={eachPost.id} post={eachPost} />;
-      })}
+      {fetching && <Loading />}
+      {!fetching && postList.length === 0 && <WelcomeMessage />}
+      {!fetching &&
+        postList.map((eachPost) => {
+          return <Post key={eachPost.id} post={eachPost} />;
+        })}
     </>
   );
 };
