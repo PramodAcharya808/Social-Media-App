@@ -2,7 +2,7 @@ import { createContext, useReducer, useState } from "react";
 
 // POST LIST CONTEXT PROVIDER
 const PostListContext = createContext({
-  PostList: [],
+  postList: [],
   AddPost: () => {},
   DeletePost: () => {},
 });
@@ -14,18 +14,17 @@ const Reducer = (currPostList, action) => {
     newPostList = currPostList.filter((post) => {
       return post.id != action.payload;
     });
-  }
-
-  if (action.type === "ADD_POST") {
+  } else if (action.type === "ADD_POST") {
     newPostList = [action.payload, ...currPostList];
+  } else if (action.type === "ADD_ALL_POST") {
+    newPostList = action.payload.posts;
   }
 
   return newPostList;
 };
-
 // POST LIST CONTEXT PROVIDER WRAPPING
 const PostListContextProvider = (props) => {
-  const [PostList, PostListDispatch] = useReducer(Reducer, []);
+  const [postList, PostListDispatch] = useReducer(Reducer, []);
 
   // DELETE POST FUNCTION
   const DeletePost = (postID) => {
@@ -44,8 +43,8 @@ const PostListContextProvider = (props) => {
       payload: {
         id: Date.now().toString(),
         title: title,
-        description: description,
-        reactionCount: 0,
+        body: description,
+        reactions: 0,
         tags: tag,
       },
     };
@@ -53,8 +52,22 @@ const PostListContextProvider = (props) => {
     PostListDispatch(addPost);
   };
 
+  // ADD POST FUNCTION
+  const AddAllPostFunc = (posts) => {
+    const addAllPost = {
+      type: "ADD_ALL_POST",
+      payload: {
+        posts,
+      },
+    };
+    console.log(posts);
+    PostListDispatch(addAllPost);
+  };
+
   return (
-    <PostListContext.Provider value={{ PostList, AddPost, DeletePost }}>
+    <PostListContext.Provider
+      value={{ postList, AddPost, DeletePost, AddAllPostFunc }}
+    >
       {props.children}
     </PostListContext.Provider>
   );

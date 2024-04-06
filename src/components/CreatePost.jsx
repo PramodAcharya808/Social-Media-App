@@ -12,11 +12,8 @@ const CreatePost = () => {
 
   const createPostonSubmit = (event) => {
     event.preventDefault();
-    AddPost(
-      postTitle.current.value,
-      postDesc.current.value,
-      postTags.current.value
-    );
+    const tagsArr = postTags.current.value.split(/(\s+)/);
+    AddPost(postTitle.current.value, postDesc.current.value, tagsArr);
   };
 
   return (
