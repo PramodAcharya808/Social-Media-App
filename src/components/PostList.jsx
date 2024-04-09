@@ -4,26 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import WelcomeMessage from "./WelcomeMessage";
 import Loading from "./Loading";
 const PostList = () => {
-  const { postList, AddAllPostFunc } = useContext(PostListContext);
-  const [fetching, setFetching] = useState(false);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
-    setFetching(true);
-    fetch("https://dummyjson.com/posts", { signal })
-      .then((res) => res.json())
-      .then((obj) => {
-        AddAllPostFunc(obj.posts);
-        setFetching(false);
-      });
-
-    return () => {
-      controller.abort();
-      console.log("Cleaning up...");
-    };
-  }, []);
+  const { postList, fetching } = useContext(PostListContext);
 
   return (
     <>

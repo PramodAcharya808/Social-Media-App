@@ -13,6 +13,18 @@ const CreatePost = () => {
   const createPostonSubmit = (event) => {
     event.preventDefault();
     const tagsArr = postTags.current.value.split(/(\s+)/);
+    //Fetching entered data from the JSON dummy server
+    fetch("https://dummyjson.com/posts/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: postTitle,
+        description: postDesc,
+        tags: tagsArr,
+      }),
+    })
+      .then((res) => res.json())
+      .then(console.log);
     AddPost(postTitle.current.value, postDesc.current.value, tagsArr);
   };
 

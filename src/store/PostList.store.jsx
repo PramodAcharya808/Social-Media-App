@@ -1,10 +1,11 @@
-import { createContext, useReducer, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 
 // POST LIST CONTEXT PROVIDER
 const PostListContext = createContext({
   postList: [],
   AddPost: () => {},
   DeletePost: () => {},
+  fetching: false,
 });
 
 //REDUCER PURE FUNCTION
@@ -22,6 +23,7 @@ const Reducer = (currPostList, action) => {
 
   return newPostList;
 };
+
 // POST LIST CONTEXT PROVIDER WRAPPING
 const PostListContextProvider = (props) => {
   const [postList, PostListDispatch] = useReducer(Reducer, []);
@@ -63,9 +65,29 @@ const PostListContextProvider = (props) => {
     PostListDispatch(addAllPost);
   };
 
+  const [fetching, setFetching] = useState(false);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    setFetching(true);
+    fetch("https://dummyjson.com/posts", { signal })
+      .then((res) => res.json())
+      .then((obj) => {
+        AddAllPostFunc(obj.posts);
+        setFetching(false);
+      });
+
+    return () => {
+      controller.abort();
+      console.log("Cleaning up...");
+    };
+  }, []);
+
   return (
     <PostListContext.Provider
-      value={{ postList, AddPost, DeletePost, AddAllPostFunc }}
+      value={{ postList, AddPost, DeletePost, fetching }}
     >
       {props.children}
     </PostListContext.Provider>
