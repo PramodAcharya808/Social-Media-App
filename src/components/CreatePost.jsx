@@ -9,6 +9,7 @@ const CreatePost = () => {
   const postTitle = useRef("");
   const postDesc = useRef("");
   const postTags = useRef("");
+  const userID = useRef("");
 
   const createPostonSubmit = (event) => {
     event.preventDefault();
@@ -18,19 +19,29 @@ const CreatePost = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        title: postTitle,
-        description: postDesc,
+        userId: userID.current.value,
+        title: postTitle.current.value,
+        body: postDesc.current.value,
         tags: tagsArr,
       }),
     })
       .then((res) => res.json())
-      .then(console.log);
-    AddPost(postTitle.current.value, postDesc.current.value, tagsArr);
+      .then((postObj) => {
+        AddPost(postObj);
+      });
   };
 
   return (
     <form className={styles.formWrapper} onSubmit={createPostonSubmit}>
       <div className="mb-3 ">
+        <label className="form-label">UserID</label>
+        <input
+          ref={userID}
+          className="form-control mb-2"
+          aria-describedby="emailHelp"
+          placeholder="Enter your user ID"
+        />
+
         <label className="form-label">Add Title</label>
         <input
           ref={postTitle}

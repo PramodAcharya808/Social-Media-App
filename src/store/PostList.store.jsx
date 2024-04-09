@@ -39,16 +39,10 @@ const PostListContextProvider = (props) => {
   };
 
   // ADD POST FUNCTION
-  const AddPost = (title, description, tag) => {
+  const AddPost = (post) => {
     const addPost = {
       type: "ADD_POST",
-      payload: {
-        id: Date.now().toString(),
-        title: title,
-        body: description,
-        reactions: 0,
-        tags: tag,
-      },
+      payload: post,
     };
 
     PostListDispatch(addPost);
