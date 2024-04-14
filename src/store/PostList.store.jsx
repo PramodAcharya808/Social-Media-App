@@ -44,8 +44,8 @@ const PostListContextProvider = (props) => {
       type: "ADD_POST",
       payload: post,
     };
-
-    PostListDispatch(addPost);
+    console.log(post);
+    // PostListDispatch(addPost);
   };
 
   // ADD POST FUNCTION

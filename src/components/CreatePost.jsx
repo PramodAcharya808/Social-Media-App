@@ -1,42 +1,17 @@
-import { useContext, useRef } from "react";
+import { Form, redirect } from "react-router-dom";
 import styles from "./CreatePost.module.css";
 import { IoIosCreate } from "react-icons/io";
+import { useContext } from "react";
 import { PostListContext } from "../store/PostList.store";
 
 const CreatePost = () => {
   const { AddPost } = useContext(PostListContext);
-
-  const postTitle = useRef("");
-  const postDesc = useRef("");
-  const postTags = useRef("");
-  const userID = useRef("");
-
-  const createPostonSubmit = (event) => {
-    event.preventDefault();
-    const tagsArr = postTags.current.value.split(/(\s+)/);
-    //Fetching entered data from the JSON dummy server
-    fetch("https://dummyjson.com/posts/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        userId: userID.current.value,
-        title: postTitle.current.value,
-        body: postDesc.current.value,
-        tags: tagsArr,
-      }),
-    })
-      .then((res) => res.json())
-      .then((postObj) => {
-        AddPost(postObj);
-      });
-  };
-
   return (
-    <form className={styles.formWrapper} onSubmit={createPostonSubmit}>
+    <Form method="POST" className={styles.formWrapper}>
       <div className="mb-3 ">
         <label className="form-label">UserID</label>
         <input
-          ref={userID}
+          name="userId"
           className="form-control mb-2"
           aria-describedby="emailHelp"
           placeholder="Enter your user ID"
@@ -44,7 +19,7 @@ const CreatePost = () => {
 
         <label className="form-label">Add Title</label>
         <input
-          ref={postTitle}
+          name="title"
           className="form-control"
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
@@ -54,7 +29,7 @@ const CreatePost = () => {
       <div className="mb-3">
         <label className="form-label">Add content</label>
         <textarea
-          ref={postDesc}
+          name="body"
           maxLength={500}
           className={`form-control ${styles.textarea}`}
           id="exampleInputPassword1"
@@ -65,7 +40,7 @@ const CreatePost = () => {
       <div className="mb-3">
         <label className="form-label">Add Tags</label>
         <input
-          ref={postTags}
+          name="tags"
           className="form-control"
           id="exampleInputPassword1"
           placeholder="#summer #weekends"
@@ -77,8 +52,23 @@ const CreatePost = () => {
           Create <IoIosCreate />
         </button>
       </div>
-    </form>
+    </Form>
   );
+};
+
+export const getPostsAction = async (formDataObj, AddPost) => {
+  const formData = await formDataObj.request.formData();
+  const post = Object.fromEntries(formData);
+
+  fetch("https://dummyjson.com/posts/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(post),
+  })
+    .then((res) => res.json())
+    .then(console.log(post));
+  // AddPost(post);
+  return redirect("/");
 };
 
 export default CreatePost;
